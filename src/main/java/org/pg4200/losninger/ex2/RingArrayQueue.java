@@ -32,7 +32,19 @@ public class RingArrayQueue<T> implements MyQueue<T>{
         {
             if(tail + 1 == head)
             {
-                upgradeStorage();
+                Object[] tmp = new Object[data.length * 2];
+
+                int size = data.length - 1 - head;
+                for(int i = 0; i < size; i++){
+                    tmp[i] = data[i + head];
+                }
+
+                for(int i = 0; i < tail; i++){
+                    tmp[i + size] = data[i];
+                }
+                head = 0;
+                tail = data.length;
+                data = tmp;
             }
             else
                 tail++;
@@ -43,7 +55,17 @@ public class RingArrayQueue<T> implements MyQueue<T>{
                 tail = 0;
             }
             else
-                upgradeStorage();
+            {
+                Object[] tmp = new Object[data.length * 2];
+
+                int  size = size();
+                for(int i = 0; i < size; i++){
+                    tmp[i] = data[i + head];
+                }
+                head = 0;
+                tail = size;
+                data = tmp;
+            }
         }
 
         data[tail] = value;
@@ -93,20 +115,5 @@ public class RingArrayQueue<T> implements MyQueue<T>{
         else
             size = ((data.length) - head) + tail + 1;
         return size;
-    }
-
-    private void upgradeStorage()
-    {
-        Object[] tmp = new Object[data.length * 2];
-
-        int  size = size();
-        for(int i = 0; i < size; i++){
-            if((i + head) > (data.length - 1))
-                head = 0;
-            tmp[i] = data[i + head];
-        }
-        head = 0;
-        tail = size;
-        data = tmp;
     }
 }
