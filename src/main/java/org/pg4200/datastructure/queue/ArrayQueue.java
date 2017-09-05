@@ -15,7 +15,6 @@ public class ArrayQueue<T> implements MyQueue<T>{
         as we can infer it from "head" and "tail"
      */
 
-
     public ArrayQueue(){
         this(10);
     }
