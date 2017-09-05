@@ -109,7 +109,7 @@ public class RingArrayQueue<T> implements MyQueue<T>{
         if(head < 0){
             return 0;
         }
-        int size = 0;
+        int size;
         if(tail >= head)
             size = (tail - head ) + 1;
         else
