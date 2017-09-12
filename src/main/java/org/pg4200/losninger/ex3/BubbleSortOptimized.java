@@ -1,23 +1,16 @@
 package org.pg4200.losninger.ex3;
 
-import org.pg4200.sorting.MySort;
-
 import java.util.Comparator;
 
-public class BubbleSortOptimized implements MySort {
-
+public class BubbleSortOptimized
+{
     public <T> int sort(T[] array, Comparator<T> comparator, boolean optimized)
     {
-
-        return array;
-    }
-
-
-    @Override
-    public <T extends Comparable<T>> void sort(T[] array) {
+        int timeCompared = 0;
+        int sortedIndex = 0;
 
         if (array == null) {
-            return;
+            return -1;
         }
 
         //make sure we enter into first loop of the "while"
@@ -31,7 +24,7 @@ public class BubbleSortOptimized implements MySort {
              */
 
             swapped = false;
-
+            sortedIndex = array.length - 1;
             for (int i = 0; i < array.length - 1; i++) {
                 int j = i + 1;
                 /*
@@ -40,22 +33,31 @@ public class BubbleSortOptimized implements MySort {
                     Like a bubble, the highest value will fly up.
                  */
 
-                if (array[i].compareTo(array[j]) > 0) {
+                if (comparator.compare(array[i], array[j]) > 0) {
                     T tmp = array[i];
                     array[i] = array[j];
                     array[j] = tmp;
 
                     swapped = true;
+                    timeCompared++;
+                    sortedIndex--;
+                }
+
+                if(optimized)
+                {
+                    if(i == sortedIndex)
+                        break;
                 }
             }
         }
-
         /*
             In best case, we still need to traverse the array once: Omega(n)
 
             Worst case (inverted array), we need an iteration for each element
             at least once: O(n^2)
          */
+
+        return timeCompared;
     }
 }
 
