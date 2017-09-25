@@ -5,7 +5,6 @@ package org.pg4200.sorting;
  */
 public class MergeSort implements MySort {
 
-
     @Override
     public <T extends Comparable<T>> void sort(T[] array) {
         if (array == null) {
